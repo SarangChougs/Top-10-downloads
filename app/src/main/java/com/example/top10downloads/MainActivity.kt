@@ -6,6 +6,26 @@ import android.os.Bundle
 import android.util.Log
 import java.net.URL
 
+//class to parse the XML data
+class FeedEntry{
+    var name:String =""
+    var artist:String =""
+    var releaseDate:String =""
+    var summary:String =""
+    var imageURL:String =""
+
+    override fun toString(): String {
+        return """
+            name = $name
+            artist = $artist
+            releaseDate = $releaseDate
+            summary = $summary
+            imageURL = $imageURL
+        """.trimIndent()
+    }
+}
+
+
 class MainActivity : AppCompatActivity() {
 
     private val tag = "MainActivity"
@@ -22,9 +42,11 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private class DownloadData : AsyncTask<String, Void, String>() {
             private val tag = "DownloadData"
-            override fun onPostExecute(result: String?) {
+            override fun onPostExecute(result: String) {
                 super.onPostExecute(result)
-                Log.d(tag, "onPostExecute: parameter is $result")
+//                Log.d(tag, "onPostExecute: parameter is $result")
+                val parseApplications = ParseApplications()
+                parseApplications.parse(result)
             }
 
             override fun doInBackground(vararg url: String?): String {
@@ -37,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                 return rssFeed
             }
 
-            //downloadXML function
+            //downloading the XML from net
             private fun downloadXML(urlPath: String?): String {
                 return URL(urlPath).readText()
             }
