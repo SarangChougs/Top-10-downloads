@@ -10,7 +10,7 @@ import java.lang.Exception
 class ParseApplications {
     private val tag = "ParseApplications"
     // a list  of type to store all the entry data
-    private val applications = ArrayList<FeedEntry>()
+     val applications = ArrayList<FeedEntry>()
 
     fun parse(xmlData:String):Boolean{
         Log.d(tag,"parse: parse called with $xmlData")
